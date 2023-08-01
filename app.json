@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "owner": "powermate",
+    "name": "powermate-app",
+    "slug": "powermate-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "backgroundColor": "#121212",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/9562a49f-ba20-4787-8b38-1d22411d3fba"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.powermate.powermateapp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.powermate.powermateapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9562a49f-ba20-4787-8b38-1d22411d3fba"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
+  }
+}

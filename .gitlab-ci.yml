@@ -1,0 +1,71 @@
+default:
+  image: node:18
+  cache:
+    policy: pull
+    unprotect: true
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules/
+      - .yarn-cache/
+      
+stages:
+  - install
+  - lint
+  - build
+  - test
+  - deploy
+
+install:
+  stage: install
+  cache:
+    policy: pull-push
+    unprotect: true
+    when: on_success
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules/
+      - .yarn-cache/
+  script:
+    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+    - yarn install --frozen-lockfile --no-progress
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "develop"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - when: never
+
+lint:
+  stage: lint
+  script:
+    - yarn run prettier
+    - yarn run lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - when: never
+
+build:
+  stage: build
+  script:
+    - EXPO_TOKEN=$EXPO_TOKEN yarn expo export -c
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "develop"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - when: never
+
+deploy_dev:
+  stage: deploy
+  script:
+    - EXPO_TOKEN=$EXPO_TOKEN yarn eas update --branch=develop --auto
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+deploy_prod:
+  stage: deploy
+  script:
+    - EXPO_TOKEN=$EXPO_TOKEN yarn eas update --branch=prod --auto
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"

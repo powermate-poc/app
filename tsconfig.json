@@ -1,0 +1,11 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "jsx": "react",
+    "types": ["d3" , "@types/styled-components-react-native"],
+    "strict": true
+  },
+  "noUnusedLocals": true,
+  "noUnusedParameters": true,
+  "exclude": ["node_modules"],
+}

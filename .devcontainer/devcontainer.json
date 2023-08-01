@@ -1,0 +1,21 @@
+{
+
+	"name": "PowerMate App",
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "18"
+		}
+	},
+
+	"postCreateCommand": "yarn install",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitLab.gitlab-workflow",
+				"redhat.vscode-yaml"
+			]
+		}
+	}
+}
